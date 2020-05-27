@@ -1,11 +1,13 @@
 package com.khoa.cloud.discovery.locator.model;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.Map;
 
-public class ServiceInstance {
+public class ServiceInstance implements Serializable {
     private String instanceId;
     private String host;
+    private String ipAddr;
     private int port;
     private boolean isSecure;
     private URI uri;
@@ -28,12 +30,20 @@ public class ServiceInstance {
         this.host = host;
     }
 
-    public int getPort() {
-        return port;
+    public String getIpAddr() {
+        return ipAddr;
     }
 
-    public void setPort(int port) {
-        this.port = port;
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
+    }
+
+    public int getPort() {
+        return this.port;
+    }
+
+    public void setPort(Map<String, Object> port) {
+        this.port = (int) port.get("$");
     }
 
     public boolean isSecure() {
@@ -66,5 +76,19 @@ public class ServiceInstance {
 
     public void setScheme(String scheme) {
         this.scheme = scheme;
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceInstance{" +
+                "instanceId='" + instanceId + '\'' +
+                ", host='" + host + '\'' +
+                ", ipAddr='" + ipAddr + '\'' +
+                ", port=" + port +
+                ", isSecure=" + isSecure +
+                ", uri=" + uri +
+                ", metadata=" + metadata +
+                ", scheme='" + scheme + '\'' +
+                '}';
     }
 }
