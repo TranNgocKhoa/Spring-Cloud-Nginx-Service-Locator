@@ -4,5 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component("syncServiceConstants")
 public class SyncServiceConstants {
-    public final static String SERVICE_INSTANCE_LIST = "ServiceInstances";
+    public final static String APPLICATION_LIST = "applicationList";
+    public final static String DEFAULT_PORT = "8080";
 }

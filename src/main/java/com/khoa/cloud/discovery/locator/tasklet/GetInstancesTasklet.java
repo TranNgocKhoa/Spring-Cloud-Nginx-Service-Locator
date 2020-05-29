@@ -2,7 +2,7 @@ package com.khoa.cloud.discovery.locator.tasklet;
 
 import com.khoa.cloud.discovery.locator.client.DiscoveryClientService;
 import com.khoa.cloud.discovery.locator.constant.SyncServiceConstants;
-import com.khoa.cloud.discovery.locator.model.ServiceInstance;
+import com.khoa.cloud.discovery.locator.model.Application;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -26,10 +26,10 @@ public class GetInstancesTasklet implements Tasklet {
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) {
-        List<ServiceInstance> serviceInstances = discoveryClientService.getServiceInstances();
+        List<Application> applications = discoveryClientService.getApplicationList();
 
         chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext()
-                .put(SyncServiceConstants.SERVICE_INSTANCE_LIST, serviceInstances);
+                .put(SyncServiceConstants.APPLICATION_LIST, applications);
 
         return RepeatStatus.FINISHED;
     }

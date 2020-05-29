@@ -28,7 +28,7 @@ public class DiscoveryClientService {
         this.getAllAppsApiUrl = this.discoveryUrl + "/apps";
     }
 
-    public List<ServiceInstance> getServiceInstances() {
+    public List<Application> getApplicationList() {
         JsonNode response = restTemplate.getForObject(this.getAllAppsApiUrl, JsonNode.class);
 
         JsonNode applicationJsonNode = Optional.ofNullable(response)
@@ -38,9 +38,7 @@ public class DiscoveryClientService {
         try {
             Application[] applications = objectMapper.treeToValue(applicationJsonNode, Application[].class);
 
-            return Arrays.stream(applications)
-                    .flatMap(application -> application.getInstance().stream())
-                    .collect(Collectors.toList());
+            return Arrays.asList(applications);
 
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error when parse Discovery Server Response.", e);

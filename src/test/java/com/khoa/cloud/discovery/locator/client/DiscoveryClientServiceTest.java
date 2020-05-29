@@ -15,7 +15,7 @@ class DiscoveryClientServiceTest {
 
     @Test
     void getServiceInstances() {
-        List<ServiceInstance> serviceInstances = discoveryClientService.getServiceInstances();
+        List<ServiceInstance> serviceInstances = discoveryClientService.getApplicationList();
 
         Assertions.assertEquals(4, serviceInstances.size());
 
