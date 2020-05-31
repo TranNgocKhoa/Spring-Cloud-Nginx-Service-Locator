@@ -1,5 +1,6 @@
 package com.khoa.cloud.discovery.locator.client;
 
+import com.khoa.cloud.discovery.locator.model.Application;
 import com.khoa.cloud.discovery.locator.model.ServiceInstance;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class DiscoveryClientServiceTest {
 
     @Test
     void getServiceInstances() {
-        List<ServiceInstance> serviceInstances = discoveryClientService.getApplicationList();
+        List<Application> serviceInstances = discoveryClientService.getApplicationList();
 
         Assertions.assertEquals(4, serviceInstances.size());
 

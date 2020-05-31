@@ -1,11 +1,16 @@
 spring:
+  application:
+    name: nginx-locator
   cloud:
     config:
       uri: http://localhost:8888
   batch:
     job:
       enabled: false
-
+server:
+  port: 8083
 
 nginx:
-  config: classpath:nginx/conf.d/default.conf
+  where: /usr/local/bin/nginx
+  config-file: /usr/local/etc/nginx/conf.d/default.conf
+  config-template: classpath:nginx/conf.d/default.conf

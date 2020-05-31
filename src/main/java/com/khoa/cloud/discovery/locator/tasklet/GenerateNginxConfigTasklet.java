@@ -1,6 +1,7 @@
 package com.khoa.cloud.discovery.locator.tasklet;
 
 import com.khoa.cloud.discovery.locator.constant.NginxConfigTemplateConstants;
+import com.khoa.cloud.discovery.locator.constant.SyncServiceConstants;
 import com.khoa.cloud.discovery.locator.model.Application;
 import com.khoa.cloud.discovery.locator.model.ServiceInstance;
 import com.khoa.cloud.discovery.locator.producer.NginxConfigProducer;
@@ -38,8 +39,13 @@ public class GenerateNginxConfigTasklet implements Tasklet {
             return RepeatStatus.FINISHED;
         }
 
+        StringBuilder serviceLoadBalancingConfigBuilder = new StringBuilder();
+
         for (Application application : applications) {
-            String configTemplate = nginxConfigProducer.getConfigTemplate();
+            String configTemplateForApplication = nginxConfigProducer.getConfigTemplate();
+
+            configTemplateForApplication = configTemplateForApplication.replace(NginxConfigTemplateConstants.SERVICE_NAME_PLACE_HOLDER, application.getName());
+            configTemplateForApplication = configTemplateForApplication.replace(NginxConfigTemplateConstants.SERVER_BAD_GATEWAY_PORT_PLACE_HOLDER, "80");
 
             List<String> listServer = nginxConfigProducer.getListServer(application.getInstance());
 
@@ -47,9 +53,14 @@ public class GenerateNginxConfigTasklet implements Tasklet {
                     .map(s -> MessageFormat.format("server {0},", s))
                     .reduce((result, server) -> String.join(result, server, "\n"));
 
-            configTemplate = configTemplate.replace(NginxConfigTemplateConstants.INSTANCE_PLACE_HOLDER, instanceUpstreamConfig.orElse(""));
+            configTemplateForApplication = configTemplateForApplication.replace(NginxConfigTemplateConstants.INSTANCE_PLACE_HOLDER, instanceUpstreamConfig.orElse(""));
 
+            serviceLoadBalancingConfigBuilder.append(configTemplateForApplication)
+                    .append("\n");
         }
+
+        chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext()
+                .put(SyncServiceConstants.SERVICES_LOAD_BALANCING_CONFIG, serviceLoadBalancingConfigBuilder.toString());
 
         return RepeatStatus.FINISHED;
     }

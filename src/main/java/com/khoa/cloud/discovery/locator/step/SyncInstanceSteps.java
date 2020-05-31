@@ -6,7 +6,6 @@ import com.khoa.cloud.discovery.locator.tasklet.GetInstancesTasklet;
 import com.khoa.cloud.discovery.locator.tasklet.NginxReloadTasklet;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,12 +42,10 @@ public class SyncInstanceSteps {
                 .build();
     }
 
-
     @Bean("nginxReload")
     public Step nginxReload(@Qualifier(NginxReloadTasklet.COMPONENT_NAME) Tasklet nginxReloadTasklet) {
         return stepBuilderFactory.get("nginxReload")
                 .tasklet(nginxReloadTasklet)
                 .build();
     }
-
 }

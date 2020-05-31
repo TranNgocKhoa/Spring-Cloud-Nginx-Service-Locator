@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class NginxConfigProducer {
     private final ResourceLoader resourceLoader;
 
-    @Value("${nginx.config}")
+    @Value("${nginx.config-template}")
     public String nginxConfigTemplateLocation;
 
     public NginxConfigProducer(ResourceLoader resourceLoader) {
