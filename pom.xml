@@ -7,9 +7,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.khoa.cloud</groupId>
-    <artifactId>service-instance-sync</artifactId>
+    <artifactId>service-instance-nginx-locator</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service-instance-sync</name>
+    <name>service-instance-nginx-locator</name>
     <description>Sync Service Information from Eureka Discovery Server</description>
 
     <properties>

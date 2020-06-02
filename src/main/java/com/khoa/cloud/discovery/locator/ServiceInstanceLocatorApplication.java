@@ -12,18 +12,18 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 @EnableScheduling
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
-public class ServiceInstanceSyncApplication {
+public class ServiceInstanceLocatorApplication {
     private final JobLauncher jobLauncher;
     private final Job updateInstancesJob;
 
-    public ServiceInstanceSyncApplication(JobLauncher jobLauncher, Job updateInstancesJob) {
+    public ServiceInstanceLocatorApplication(JobLauncher jobLauncher, Job updateInstancesJob) {
         this.jobLauncher = jobLauncher;
         this.updateInstancesJob = updateInstancesJob;
     }
 
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceInstanceSyncApplication.class, args);
+        SpringApplication.run(ServiceInstanceLocatorApplication.class, args);
     }
 
 

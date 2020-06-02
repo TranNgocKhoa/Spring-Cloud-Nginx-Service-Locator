@@ -1,7 +1,6 @@
 package com.khoa.cloud.discovery.locator.client;
 
 import com.khoa.cloud.discovery.locator.model.Application;
-import com.khoa.cloud.discovery.locator.model.ServiceInstance;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
