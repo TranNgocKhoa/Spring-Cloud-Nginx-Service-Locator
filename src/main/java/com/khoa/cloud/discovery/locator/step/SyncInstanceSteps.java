@@ -15,34 +15,39 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableBatchProcessing
 public class SyncInstanceSteps {
+    public static final String GET_INSTANCES_STEP = "getInstances";
+    public static final String GENERATE_NGINX_CONFIG_STEP = "generateNginxConfig";
+    public static final String CHANGE_NGINX_CONFIG_STEP = "changeNginxConfig";
+    public static final String RELOAD_NGINX_CONFIG_STEP = "nginxReload";
+
     private final StepBuilderFactory stepBuilderFactory;
 
     public SyncInstanceSteps(StepBuilderFactory stepBuilderFactory) {
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
-    @Bean("getInstances")
+    @Bean(GET_INSTANCES_STEP)
     public Step getInstances(@Qualifier(GetInstancesTasklet.COMPONENT_NAME) Tasklet getInstancesTasklet) {
         return stepBuilderFactory.get("getInstances")
                 .tasklet(getInstancesTasklet)
                 .build();
     }
 
-    @Bean("generateNginxConfig")
+    @Bean(GENERATE_NGINX_CONFIG_STEP)
     public Step generateNginxConfig(@Qualifier(GenerateNginxConfigTasklet.COMPONENT_NAME) Tasklet generateNginxConfigTasklet) {
         return stepBuilderFactory.get("generateNginxConfig")
                 .tasklet(generateNginxConfigTasklet)
                 .build();
     }
 
-    @Bean("changeNginxConfig")
+    @Bean(CHANGE_NGINX_CONFIG_STEP)
     public Step changeNginxConfig(@Qualifier(ChangeNginxConfigTasklet.COMPONENT_NAME) Tasklet changeNginxConfigTasklet) {
         return stepBuilderFactory.get("changeNginxConfig")
                 .tasklet(changeNginxConfigTasklet)
                 .build();
     }
 
-    @Bean("nginxReload")
+    @Bean(RELOAD_NGINX_CONFIG_STEP)
     public Step nginxReload(@Qualifier(NginxReloadTasklet.COMPONENT_NAME) Tasklet nginxReloadTasklet) {
         return stepBuilderFactory.get("nginxReload")
                 .tasklet(nginxReloadTasklet)

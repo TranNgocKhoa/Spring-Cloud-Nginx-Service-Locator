@@ -37,7 +37,6 @@ public class DiscoveryClientService {
             Application[] applications = objectMapper.treeToValue(applicationJsonNode, Application[].class);
 
             return Arrays.asList(applications);
-
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error when parse Discovery Server Response.", e);
         }

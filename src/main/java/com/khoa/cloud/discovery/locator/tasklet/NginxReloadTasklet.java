@@ -6,6 +6,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @StepScope
@@ -17,8 +18,7 @@ public class NginxReloadTasklet implements Tasklet {
     private String nginxLocation;
 
     @Override
-    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
-        // Execute shell command
+    public RepeatStatus execute(@NonNull StepContribution stepContribution, @NonNull ChunkContext chunkContext) throws Exception {
         var processBuilder = new ProcessBuilder();
 
         processBuilder.command("/bin/sh", "-c", nginxLocation + " -s reload");

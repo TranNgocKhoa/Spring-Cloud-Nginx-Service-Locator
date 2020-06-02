@@ -24,11 +24,9 @@ public class ServiceInstanceLocatorApplication {
         this.updateInstancesJob = updateInstancesJob;
     }
 
-
     public static void main(String[] args) {
         SpringApplication.run(ServiceInstanceLocatorApplication.class, args);
     }
-
 
     @Scheduled(cron = "*/30 * * * * *")
     public void updateInstances() throws Exception {
