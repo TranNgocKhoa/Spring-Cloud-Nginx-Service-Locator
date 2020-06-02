@@ -7,11 +7,14 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 @EnableScheduling
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication(exclude = {
+        DataSourceAutoConfiguration.class,
+        WebMvcAutoConfiguration.class})
 public class ServiceInstanceLocatorApplication {
     private final JobLauncher jobLauncher;
     private final Job updateInstancesJob;
