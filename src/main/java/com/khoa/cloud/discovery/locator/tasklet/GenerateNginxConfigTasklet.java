@@ -44,13 +44,13 @@ public class GenerateNginxConfigTasklet implements Tasklet {
         for (Application application : applications) {
             String configTemplateForApplication = nginxConfigProducer.getConfigTemplate();
 
-            configTemplateForApplication = configTemplateForApplication.replace(NginxConfigTemplateConstants.SERVICE_NAME_PLACE_HOLDER, application.getName());
-            configTemplateForApplication = configTemplateForApplication.replace(NginxConfigTemplateConstants.SERVER_BAD_GATEWAY_PORT_PLACE_HOLDER, "80");
+            configTemplateForApplication = configTemplateForApplication.replaceAll(NginxConfigTemplateConstants.SERVICE_NAME_PLACE_HOLDER, application.getName());
+            configTemplateForApplication = configTemplateForApplication.replaceAll(NginxConfigTemplateConstants.SERVER_BAD_GATEWAY_PORT_PLACE_HOLDER, "80");
 
             List<String> listServer = nginxConfigProducer.getListServer(application.getInstance());
 
             Optional<String> instanceUpstreamConfig = listServer.stream()
-                    .map(s -> MessageFormat.format("server {0},", s))
+                    .map(s -> MessageFormat.format("server {0};", s))
                     .reduce((result, server) -> String.join(result, server, "\n"));
 
             configTemplateForApplication = configTemplateForApplication.replace(NginxConfigTemplateConstants.INSTANCE_PLACE_HOLDER, instanceUpstreamConfig.orElse(""));

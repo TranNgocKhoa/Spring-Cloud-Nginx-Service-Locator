@@ -19,7 +19,7 @@ public class NginxReloadTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
         // Execute shell command
-        ProcessBuilder processBuilder = new ProcessBuilder();
+        var processBuilder = new ProcessBuilder();
 
         processBuilder.command("/bin/sh", "-c", nginxLocation + " -s reload");
 
